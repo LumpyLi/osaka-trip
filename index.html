@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>大阪家庭旅行 2026 · 6/20–6/27</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css"/>
+<style>
+:root{--pink:#f472b6;--pink-l:#fdf2f8;--orange:#fb923c;--orange-l:#fff7ed;--blue:#3b82f6;--blue-l:#eff6ff;--green:#22c55e;--green-l:#f0fdf4;--purple:#8b5cf6;--purple-l:#f5f3ff;--teal:#14b8a6;--teal-l:#f0fdfa;--indigo:#6366f1;--indigo-l:#eef2ff;--gray:#6b7280;--border:#e5e7eb;--dark:#1f2937;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f3f4f6;color:var(--dark);font-size:13px;line-height:1.6;}
+
+/* Hero */
+.hero{background:linear-gradient(135deg,#1e1b4b 0%,#312e81 40%,#4c1d95 70%,#7c3aed 100%);color:#fff;padding:36px 20px 28px;text-align:center;}
+.hero h1{font-size:24px;font-weight:800;margin-bottom:6px;}
+.hero .sub{font-size:13px;opacity:.8;margin-bottom:14px;}
+.hero .tags{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;}
+.hero .tag{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:3px 12px;font-size:11px;}
+
+/* Container */
+.wrap{max-width:960px;margin:0 auto;padding:16px;}
+
+/* Section titles */
+.sec-title{font-size:14px;font-weight:700;color:var(--dark);margin:22px 0 10px;display:flex;align-items:center;gap:6px;}
+
+/* Info row */
+.info-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin-bottom:8px;}
+.info-card{background:#fff;border-radius:10px;padding:12px 14px;border:1px solid var(--border);}
+.info-card .lbl{font-size:10px;color:var(--gray);text-transform:uppercase;letter-spacing:.4px;margin-bottom:3px;}
+.info-card .val{font-size:14px;font-weight:700;}
+.info-card .sub{font-size:11px;color:var(--gray);margin-top:2px;}
+
+/* Flight comparison */
+.flight-compare{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;margin-bottom:10px;}
+.fc-header{display:grid;grid-template-columns:140px 1fr 1fr;background:#f9fafb;border-bottom:1px solid var(--border);}
+.fc-h-cell{padding:8px 12px;font-size:11px;font-weight:700;color:var(--gray);text-transform:uppercase;}
+.fc-row{display:grid;grid-template-columns:140px 1fr 1fr;border-bottom:1px solid var(--border);}
+.fc-row:last-child{border-bottom:none;}
+.fc-label{padding:10px 12px;font-size:12px;font-weight:600;color:var(--dark);background:#fafafa;display:flex;align-items:center;}
+.fc-cell{padding:10px 12px;font-size:12px;color:var(--dark);border-left:1px solid var(--border);}
+.fc-cell.winner{background:#f0fdf4;color:#15803d;font-weight:600;}
+.fc-cell.alt{background:#eff6ff;color:#1d4ed8;}
+.badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:5px;font-weight:700;margin-left:4px;}
+.badge-rec{background:#dcfce7;color:#15803d;}
+.badge-alt{background:#dbeafe;color:#1d4ed8;}
+.badge-warn{background:#fff7ed;color:#c2410c;}
+.warn-box{background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;padding:10px 12px;font-size:12px;color:#c2410c;margin:8px 0;}
+
+/* Hotel cards */
+.hotel-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:4px;}
+@media(max-width:600px){.hotel-grid{grid-template-columns:1fr;}}
+.hotel-card{background:#fff;border-radius:12px;border:1px solid var(--border);padding:14px 16px;}
+.hotel-phase{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px;}
+.hotel-name{font-size:14px;font-weight:700;margin-bottom:3px;}
+.hotel-nights{font-size:11px;color:var(--gray);margin-bottom:6px;}
+.hotel-price{font-size:13px;font-weight:700;margin-bottom:5px;}
+.hotel-pro{font-size:11px;color:var(--gray);padding-left:12px;position:relative;margin-bottom:3px;line-height:1.5;}
+.hotel-pro::before{content:"✓";position:absolute;left:0;color:var(--green);font-weight:700;}
+
+/* Budget */
+.budget{background:#fff;border-radius:12px;border:1px solid var(--border);overflow:hidden;}
+.b-row{display:flex;align-items:center;padding:9px 14px;border-bottom:1px solid var(--border);gap:10px;}
+.b-row:last-child{border-bottom:none;background:#fafafa;}
+.b-icon{font-size:14px;width:20px;flex-shrink:0;}
+.b-name{flex:1;font-size:12px;font-weight:500;}
+.b-detail{font-size:11px;color:var(--gray);}
+.b-amount{font-size:12px;font-weight:700;white-space:nowrap;}
+.b-row.total .b-amount{font-size:14px;color:var(--orange);}
+
+/* Tips */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;}
+.tip-card{background:#fff;border-radius:10px;border:1px solid var(--border);padding:12px 14px;}
+.tip-title{font-size:12px;font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:5px;}
+.tip-item{font-size:11px;color:var(--gray);margin-bottom:3px;padding-left:10px;position:relative;line-height:1.5;}
+.tip-item::before{content:"·";position:absolute;left:0;}
+
+/* ══ MAP SECTION ══ */
+.map-section{background:#fff;border-radius:14px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px;}
+.map-top{padding:14px 16px 0;}
+.map-top h2{font-size:14px;font-weight:800;margin-bottom:10px;}
+
+/* Day tabs */
+.day-tabs{display:flex;gap:6px;overflow-x:auto;padding-bottom:10px;scrollbar-width:none;}
+.day-tabs::-webkit-scrollbar{display:none;}
+.day-tab{flex-shrink:0;border:none;border-radius:20px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;transition:all .2s;background:#f3f4f6;color:var(--gray);}
+.day-tab.active{color:#fff;}
+.day-tab:hover:not(.active){filter:brightness(.95);}
+
+/* Map body */
+.map-body{display:grid;grid-template-columns:340px 1fr;height:500px;}
+@media(max-width:700px){.map-body{grid-template-columns:1fr;height:auto;}}
+
+/* Timeline panel */
+.timeline-panel{overflow-y:auto;border-right:1px solid var(--border);}
+.tl-day-header{padding:10px 14px 6px;font-size:11px;font-weight:700;color:var(--gray);background:#fafafa;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:1;}
+.tl-spot{display:flex;gap:10px;padding:10px 14px;border-bottom:1px solid #f3f4f6;cursor:pointer;transition:background .15s;}
+.tl-spot:hover{background:#f9fafb;}
+.tl-spot.active{background:#eff6ff;}
+.tl-time{font-size:10px;color:var(--gray);font-weight:600;width:32px;flex-shrink:0;padding-top:2px;}
+.tl-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:0;}
+.tl-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.tl-line{width:1px;background:var(--border);flex:1;min-height:8px;margin:3px 0;}
+.tl-info{flex:1;}
+.tl-name{font-size:12px;font-weight:600;color:var(--dark);line-height:1.4;}
+.tl-desc{font-size:11px;color:var(--gray);margin-top:2px;line-height:1.4;}
+
+/* Map container */
+#map{height:500px;}
+@media(max-width:700px){#map{height:300px;}}
+
+/* Transport popup (in Leaflet) */
+.tp-popup{font-family:-apple-system,"PingFang SC",sans-serif;font-size:12px;min-width:220px;}
+.tp-name{font-size:13px;font-weight:700;color:#1f2937;margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid #e5e7eb;}
+.tp-row{display:flex;gap:6px;margin-bottom:5px;align-items:flex-start;}
+.tp-icon{font-size:13px;flex-shrink:0;width:18px;}
+.tp-label{color:#6b7280;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.3px;line-height:1.4;}
+.tp-val{color:#1f2937;font-size:12px;line-height:1.4;}
+.tp-station{background:#f9fafb;border-radius:6px;padding:5px 8px;margin-top:4px;font-size:11px;color:#374151;line-height:1.5;}
+.tp-tip{background:#fef9c3;border-radius:6px;padding:5px 8px;margin-top:6px;font-size:11px;color:#713f12;line-height:1.5;}
+.leaflet-popup-content-wrapper{border-radius:10px!important;box-shadow:0 4px 20px rgba(0,0,0,.15)!important;}
+
+/* Misc */
+.new-badge{display:inline-block;font-size:10px;background:#fef3c7;color:#92400e;border:1px solid #fcd34d;border-radius:4px;padding:1px 5px;margin-left:4px;font-weight:700;}
+footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-top:1px solid var(--border);margin-top:8px;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>🇯🇵 大阪家庭旅行计划</h1>
+  <div class="sub">6月20日（周六）— 6月27日（周六）· 8天7晚 · 2大1小 · 女儿5岁生日纪念旅</div>
+  <div class="tags">
+    <span class="tag">✈ 直飞 HKG ↔ KIX</span>
+    <span class="tag">🎂 6/22 USJ 生日惊喜</span>
+    <span class="tag">🏨 全程仅2家酒店</span>
+    <span class="tag">🦌 奈良喂鹿 + 生驒山游乐园</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<!-- Overview -->
+<div class="sec-title">📋 行程概览</div>
+<div class="info-row">
+  <div class="info-card"><div class="lbl">出发 / 返回</div><div class="val">6/20 → 6/27</div><div class="sub">8天7晚</div></div>
+  <div class="info-card"><div class="lbl">出行人数</div><div class="val">2大1小</div><div class="sub">女儿 6/22 满5岁</div></div>
+  <div class="info-card"><div class="lbl">住宿安排</div><div class="val">仅2家酒店</div><div class="sub">USJ酒店3晚 + 难波4晚</div></div>
+  <div class="info-card"><div class="lbl">签证</div><div class="val">⚠ 需提前办理</div><div class="sub">内地护照，建议5月中前递签</div></div>
+</div>
+
+<!-- Flight Comparison -->
+<div class="sec-title">✈️ 航班对比 · 去程 6/20（周六）</div>
+<div class="flight-compare">
+  <div class="fc-header">
+    <div class="fc-h-cell">对比项</div>
+    <div class="fc-h-cell">Peach MM64 <span class="badge badge-rec">推荐</span></div>
+    <div class="fc-h-cell">HK Express UO688 <span class="badge badge-alt">备选</span></div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">出发时间</div>
+    <div class="fc-cell winner">HKG <b>12:40</b></div>
+    <div class="fc-cell alt">HKG <b>14:55</b></div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">抵达时间</div>
+    <div class="fc-cell winner">KIX <b>17:30</b>（抵酒店约19:00）</div>
+    <div class="fc-cell alt">KIX <b>18:52</b>（抵酒店约20:30，略晚）</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">携程参考价（单程/人）</div>
+    <div class="fc-cell winner">约 ¥1,200–1,800（需实时查价）</div>
+    <div class="fc-cell alt"><b>¥2,025</b>（用户已确认）</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">托运行李</div>
+    <div class="fc-cell"><span class="badge badge-warn">需额外购买</span><br><span style="font-size:10px;color:#c2410c;">约¥300–500/件/人，3人含行李后总价接近</span></div>
+    <div class="fc-cell">通常含1件（以携程购票页面为准）</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">航站楼</div>
+    <div class="fc-cell">KIX T2（LCC楼，略远）</div>
+    <div class="fc-cell winner">KIX T1（主航站楼）</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">综合建议</div>
+    <div class="fc-cell winner">早到1.5小时，Day 1 更从容</div>
+    <div class="fc-cell alt">价格已知，含行李总价差异不大</div>
+  </div>
+</div>
+
+<div class="sec-title" style="margin-top:14px;">✈️ 航班建议 · 回程 6/27（周六）</div>
+<div class="flight-compare">
+  <div class="fc-header">
+    <div class="fc-h-cell">对比项</div>
+    <div class="fc-h-cell">HK Express（推荐回程）<span class="badge badge-rec">推荐</span></div>
+    <div class="fc-h-cell">其他选项</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">参考价格（/人）</div>
+    <div class="fc-cell winner">约 ¥2,060–2,100（约比去程多几十元）</div>
+    <div class="fc-cell">国泰 / 大湾区航空价格较高</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">建议出发时间</div>
+    <div class="fc-cell winner">KIX <b>12:30–14:00</b> 出发</div>
+    <div class="fc-cell">避免15:00后，否则抵港过晚</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">抵港预估</div>
+    <div class="fc-cell winner">HKG <b>16:00–18:00</b>，包车回南沙傍晚到家</div>
+    <div class="fc-cell">—</div>
+  </div>
+  <div class="fc-row">
+    <div class="fc-label">3人往返合计</div>
+    <div class="fc-cell winner" style="grid-column:span 2;border-left:1px solid var(--border);">约 <b>（¥2,025+¥2,080）× 3 = ¥12,315 RMB ≈ HKD 13,400</b>（不含行李费，具体以购票时为准）</div>
+  </div>
+</div>
+
+<div class="warn-box">⚠ 提醒：Peach T2 航站楼乘南海电铁需步行较长连廊，若有大件行李建议选 HK Express T1 去程，或提前确认 Peach 含行李的总费用后再作决定。</div>
+
+<!-- Hotels -->
+<div class="sec-title">🏨 住宿安排（全程仅 2 家酒店）</div>
+<div class="hotel-grid">
+  <div class="hotel-card" style="border-top:3px solid #ec4899;">
+    <div class="hotel-phase" style="color:#ec4899;">Hotel 1 · USJ 区域（3晚）6/20–6/23</div>
+    <div class="hotel-name">Hotel Universal Port</div>
+    <div class="hotel-nights">USJ 步行5分钟 · 官方合作酒店 · 樱岛站旁</div>
+    <div class="hotel-price" style="color:#ec4899;">约 ¥18,000–26,000/晚（约¥857–1,238）</div>
+    <div class="hotel-pro">USJ 特权早入场（比公众早15–30分）</div>
+    <div class="hotel-pro">步行至USJ正门，生日当天无需奔波</div>
+    <div class="hotel-pro">Day 2 可作为难波日归基地（JR约30分）</div>
+    <div class="hotel-pro">备选：Hotel Keihan Universal Tower（含温泉）</div>
+    <div style="font-size:10px;color:#c2410c;margin-top:8px;">⚠ 此酒店略超600–1000 HKD预算，但早入场体验是生日关键加分，建议保留</div>
+  </div>
+  <div class="hotel-card" style="border-top:3px solid #8b5cf6;">
+    <div class="hotel-phase" style="color:#8b5cf6;">Hotel 2 · 难波区（4晚）6/23–6/27</div>
+    <div class="hotel-name">Dormy Inn Premium Namba</div>
+    <div class="hotel-nights">千日前通步行3分钟 · 道顿堀步行8分钟 · 有天然温泉</div>
+    <div class="hotel-price" style="color:#8b5cf6;">约 ¥14,000–20,000/晚（约¥667–952）</div>
+    <div class="hotel-pro">天然温泉，每晚带小朋友泡汤极舒适</div>
+    <div class="hotel-pro">距心斋桥、难波、海游馆、奈良出发点均便捷</div>
+    <div class="hotel-pro">备选：Cross Hotel Osaka（心斋桥，设计感强）</div>
+    <div class="hotel-pro">6/27 早上退房，行李寄存后轻装购物</div>
+  </div>
+</div>
+
+<!-- Interactive Map -->
+<div class="sec-title">🗺️ 可交互行程地图</div>
+<div class="map-section">
+  <div class="map-top">
+    <h2>点击左侧行程 → 地图自动定位 · 显示出行方式 / 时间 / 价格 / 车站信息</h2>
+    <div class="day-tabs" id="dayTabs"></div>
+  </div>
+  <div class="map-body">
+    <div class="timeline-panel" id="timelinePanel"></div>
+    <div id="map"></div>
+  </div>
+</div>
+
+<!-- Budget -->
+<div class="sec-title">💰 费用参考（3人合计）</div>
+<div class="budget">
+  <div class="b-row"><div class="b-icon">✈</div><div class="b-name">往返机票（3人）</div><div class="b-detail">HK Express 或 Peach+HK Express，含行李</div><div class="b-amount">约¥13,000–16,000</div></div>
+  <div class="b-row"><div class="b-icon">🏨</div><div class="b-name">住宿（7晚）</div><div class="b-detail">USJ酒店3晚 + 难波酒店4晚</div><div class="b-amount">约¥10,000–14,000</div></div>
+  <div class="b-row"><div class="b-icon">🎠</div><div class="b-name">USJ门票 × 2天（3人）</div><div class="b-detail">成人约¥9,800×2人×2天，儿童¥6,600×2天，含Express Pass</div><div class="b-amount">约¥8,000–12,000</div></div>
+  <div class="b-row"><div class="b-icon">🎡</div><div class="b-name">其余景点</div><div class="b-detail">海游馆、大阪城、通天阁、蓝天大厦、东大寺、缆车等</div><div class="b-amount">约¥2,500–4,000</div></div>
+  <div class="b-row"><div class="b-icon">🍱</div><div class="b-name">餐饮（8天）</div><div class="b-detail">午晚餐约¥3,000–5,000/餐，3人</div><div class="b-amount">约¥5,000–8,000</div></div>
+  <div class="b-row"><div class="b-icon">🚃</div><div class="b-name">当地交通</div><div class="b-detail">地铁 + 近铁 + JR + 南海 + 机场</div><div class="b-amount">约¥1,500–2,000</div></div>
+  <div class="b-row"><div class="b-icon">🛍️</div><div class="b-name">购物 / 药妆</div><div class="b-detail">因人而异</div><div class="b-amount">¥2,000–6,000</div></div>
+  <div class="b-row total"><div class="b-icon">💵</div><div class="b-name">总计估算（不含购物）</div><div class="b-detail">所有价格单位：人民币（RMB）</div><div class="b-amount">约¥40,000–56,000</div></div>
+</div>
+
+<!-- Tips -->
+<div class="sec-title">💡 实用提醒</div>
+<div class="tips-grid">
+  <div class="tip-card">
+    <div class="tip-title">📋 出发前必做</div>
+    <div class="tip-item">5月中前完成日本签证递签（广州领事馆）</div>
+    <div class="tip-item">提前购买 USJ 门票 + Express Pass（官网/Klook）</div>
+    <div class="tip-item">USJ 官网登记女儿生日（Birthday Badge）</div>
+    <div class="tip-item">海游馆提前网购票（跳过排队）</div>
+    <div class="tip-item">确认生驹山游乐园6/26营业（查官网日历）</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-title">💳 支付 &amp; 通讯</div>
+    <div class="tip-item">机场购买 ICOCA 卡（¥2,000，¥500押金），刷地铁/JR/便利店</div>
+    <div class="tip-item">eSIM 推荐 Airalo / IIJmio（日本流量，日均¥15）</div>
+    <div class="tip-item">便利店 7-Eleven ATM 可取日元</div>
+    <div class="tip-item">大多景点支持 Visa/Mastercard 刷卡</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-title">🌧️ 6月天气</div>
+    <div class="tip-item">大阪6月下旬进入梅雨，带折叠伞或雨衣</div>
+    <div class="tip-item">气温22–30°C，湿热，穿透气衣物</div>
+    <div class="tip-item">海游馆/USJ室内为主，雨天影响小</div>
+    <div class="tip-item">若草山 / 奈良选晴天更好</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-title">📱 推荐 App</div>
+    <div class="tip-item">Google Maps（离线下载大阪地图）</div>
+    <div class="tip-item">USJ 官方 App（实时等待时间）</div>
+    <div class="tip-item">Navitime Japan（关西电车换乘）</div>
+    <div class="tip-item">携程 / Klook（景点购票）</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-title">👧 带娃小贴士</div>
+    <div class="tip-item">USJ环球奇境（Hello Kitty/史努比）排队最短，5岁最合适</div>
+    <div class="tip-item">奈良鹿可能追着抢饼，保护好女儿，鹿饼不要外露</div>
+    <div class="tip-item">生驒山游乐园项目温和，适合5岁</div>
+    <div class="tip-item">每天下午安排30分钟休息（咖啡厅/便利店）</div>
+  </div>
+  <div class="tip-card">
+    <div class="tip-title">🎁 额外加入景点说明</div>
+    <div class="tip-item"><b>道顿堀运河游船</b>：固力果招牌最佳视角，晚间更美</div>
+    <div class="tip-item"><b>奈良鹿野公园</b>：与若草山、东大寺连续游览，零成本</div>
+    <div class="tip-item"><b>生驒山游乐园</b>（原有）：免费入园，缆车独特，适合5岁</div>
+  </div>
+</div>
+
+<footer>本行程计划生成于 2026年4月 · 航班价格及营业时间以实际购票为准 · 祝一家人生日快乐、旅途愉快 🌸</footer>
+
+</div><!-- /wrap -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+// ══════════════════════════════════════════
+// 行程数据
+// ══════════════════════════════════════════
+const DAYS = [
+ {id:1,date:"6/20",weekday:"周六",emoji:"🛬",title:"抵达·软着陆",color:"#3b82f6",
+  center:[34.6647,135.4328],zoom:13,
+  hotel:"Hotel Universal Port（入住）",
+  spots:[
+   {id:"kix",name:"关西国际机场（KIX）抵达",lat:34.4347,lng:135.2443,time:"17:30",icon:"✈️",
+    desc:"Peach MM64（推荐）或 HK Express UO688 落地。入境 → 取行李 → 购 ICOCA 卡",
+    tip:"在机场自动售货机购买 ICOCA 交通卡（¥2,000，内含¥500押金），后续乘地铁/JR直接刷卡",
+    transport:null},
+   {id:"usj_hotel",name:"Hotel Universal Port 入住",lat:34.6647,lng:135.4328,time:"19:30",icon:"🏨",
+    desc:"USJ官方合作酒店，享有特权早入场。告知前台6/22是女儿生日",
+    tip:"提前在携程/官网办理线上Check-in。酒店到USJ步行仅5分钟。",
+    transport:{mode:"南海电铁 + JR夢咲線",duration:"约55分钟",
+     costJPY:1240,costCNY:59,
+     boarding:"KIX T1 乘南海电铁急行（难波方向），约38分至难波（¥1,070）",
+     alighting:"难波换乘 JR大阪環状線(内回り)→西九条，再换JR夢咲線→樱岛站（¥170），步行5分至酒店"}},
+   {id:"citywalk1",name:"Universal CityWalk 晚餐",lat:34.6655,lng:135.4307,time:"20:00",icon:"🍽️",
+    desc:"多种风格餐厅，不需要外出，直接在CityWalk用晚餐。人均约¥1,500–2,500（约¥71–119）",
+    tip:"推荐：Hard Rock Cafe 或 和民居酒屋，氛围热闹适合带小孩",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从酒店大堂出发步行",alighting:"Universal CityWalk 入口"}}
+  ]},
+
+ {id:2,date:"6/21",weekday:"周日",emoji:"🏙️",title:"难波漫游（日归）",color:"#f97316",
+  center:[34.6650,135.5020],zoom:14,
+  hotel:"Hotel Universal Port（第2晚）",
+  spots:[
+   {id:"usj_dep",name:"USJ酒店出发（前往难波）",lat:34.6647,lng:135.4328,time:"09:00",icon:"🚃",
+    desc:"全天日归难波游玩，今晚返回USJ酒店备战明天生日",tip:"",transport:null},
+   {id:"kuromon",name:"黑门市场（黒門市場）",lat:34.6677,lng:135.5072,time:"09:45",icon:"🏪",
+    desc:"大阪厨房，海鲜 · 和牛串 · 玉子烧边走边吃。营业约9:00–18:00",
+    tip:"建议早到，11点后人流急增。推荐：三重蟹脚¥500（约¥24）、和牛串¥800（约¥38）",
+    transport:{mode:"JR夢咲線 + 大阪環状線",duration:"约30分钟",
+     costJPY:390,costCNY:19,
+     boarding:"USJ酒店步行5分至樱岛站（JR），乘夢咲線至西九条（¥170）",
+     alighting:"西九条换乘大阪環状線（内回り）→新今宫站（新今宮），2号出口步行约10分至黑门市场"}},
+   {id:"dotonbori",name:"道顿堀",lat:34.6689,lng:135.5013,time:"11:30",icon:"🌆",
+    desc:"大阪最具代表性商业街，固力果跑步人招牌 · 蟹道乐 · 金龙拉面",
+    tip:"推荐午餐：美津の大阪烧约¥1,200/人（约¥57），或道顿堀周边任意觅食",
+    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
+     boarding:"从黑门市场向西步行沿千日前通",alighting:"道顿堀固力果招牌前"}},
+   {id:"cruise",name:"道顿堀运河游船 🚤",lat:34.6685,lng:135.5005,time:"13:30",icon:"🚤",
+    desc:"Tombori Riverwalk约20分钟，可看固力果招牌 · 戎桥全景。成人¥900（约¥43），4岁以上¥400（约¥19）",
+    tip:"建议先在固力果招牌正面合影，然后再登船从水面视角仰望，两种体验不同",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从固力果招牌步行沿运河边向东",alighting:"Tombori Riverwalk码头（中座くいだおれ附近）"}},
+   {id:"shinsaibashi",name:"心斋桥筋商店街",lat:34.6723,lng:135.5023,time:"14:30",icon:"🛍️",
+    desc:"日本最长有顶购物街，药妆 · 零食 · 时装 · 伴手礼一站式",
+    tip:"推荐：松本清、大国药妆、LOFT、Bic Camera",
+    transport:{mode:"步行",duration:"约8分钟",costJPY:0,costCNY:0,
+     boarding:"从道顿堀戎桥向北步行",alighting:"心斋桥筋商店街南端入口"}},
+   {id:"namba_yasaka",name:"难波八坂神社",lat:34.6569,lng:135.4987,time:"16:30",icon:"⛩️",
+    desc:"巨型「狮子殿」舞台，傍晚灯光亮起极震撼，免费参观",
+    tip:"傍晚18点灯光版拍照更有氛围。女儿见到这只巨狮必定惊叫！",
+    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
+     boarding:"从心斋桥筋南端步行",alighting:"难波八坂神社正门"}},
+   {id:"return_usj",name:"返回USJ酒店（早休息备战生日）",lat:34.6647,lng:135.4328,time:"18:30",icon:"🏨",
+    desc:"早点回酒店，让女儿好好休息，明天是她的生日！",
+    tip:"可在新今宫站附近吃完晚餐再回，或回CityWalk用餐",
+    transport:{mode:"JR大阪環状線 + 夢咲線",duration:"约30分钟",
+     costJPY:390,costCNY:19,
+     boarding:"新今宫站（JR），乘大阪環状線（外回り）至西九条",
+     alighting:"西九条换乘JR夢咲線→樱岛站，步行5分至酒店"}}
+  ]},
+
+ {id:3,date:"6/22",weekday:"周一",emoji:"🎂",title:"🎂 生日！USJ Day 1",color:"#ec4899",
+  center:[34.6654,135.4321],zoom:15,
+  hotel:"Hotel Universal Port（第3晚）",
+  spots:[
+   {id:"usj_early1",name:"USJ 特权早入场",lat:34.6654,lng:135.4321,time:"07:30",icon:"⚡",
+    desc:"比公众提前15–30分钟入园！直冲哈利波特区或任天堂世界，无人排队拍照",
+    tip:"官方酒店住客专属。步行至USJ正门约5分钟，记得带酒店特权入园凭证",
+    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从USJ酒店大堂出发",alighting:"USJ正门（住客专属闸口）"}},
+   {id:"usj_hp",name:"哈利波特魔法世界",lat:34.6660,lng:135.4340,time:"08:00",icon:"⚡",
+    desc:"禁忌之旅(4D) · 霍格沃茨城堡打卡 · 黄油啤酒 · 奥利凡德魔杖表演（免费，需排队领号）",
+    tip:"奥利凡德表演每场约20分钟，每次选一位观众演示。开园后立刻去排领号，名额极有限！",
+    transport:{mode:"步行（园内）",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从USJ入口进入后右转",alighting:"霍格沃茨城堡/Hogsmeade村"}},
+   {id:"usj_minion",name:"小黄人乐园 · 环球奇境",lat:34.6645,lng:135.4330,time:"11:00",icon:"🍌",
+    desc:"Minion Mayhem · Hello Kitty · 史努比—5岁完美匹配！排队最短最亲子的区域",
+    tip:"任天堂世界需在App抢「整理券」（免费），开园即操作，名额约30分钟抢完",
+    transport:{mode:"步行（园内）",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从哈利波特区穿越好莱坞区步行",alighting:"小黄人区/环球奇境入口"}},
+   {id:"usj_lunch",name:"园内午餐",lat:34.6650,lng:135.4320,time:"13:00",icon:"🍽️",
+    desc:"推荐：Mel's Drive-In（美式汉堡适合小孩，约¥1,500，约¥71）或三宝斋（中华风）",
+    tip:"避开12:00–13:00高峰，13:30后用餐等位更短",
+    transport:{mode:"步行（园内）",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从小黄人区步行",alighting:"园内餐厅区"}},
+   {id:"usj_bday",name:"🎂 生日庆祝",lat:34.6655,lng:135.4307,time:"17:00",icon:"🎂",
+    desc:"在CityWalk或园内甜品区买生日蛋糕/蛋糕杯。USJ工作人员会主动祝贺！",
+    tip:"提前在USJ官网「Guest Services」登记生日 → 入园领取专属生日徽章，工作人员见到会唱生日歌",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从园内步行至出口方向",alighting:"Universal CityWalk 甜品店"}}
+  ]},
+
+ {id:4,date:"6/23",weekday:"周二",emoji:"🎠",title:"USJ Day 2 · 梅田夜景",color:"#ec4899",
+  center:[34.6900,135.4700],zoom:12,
+  hotel:"Dormy Inn Premium Namba（搬入）",
+  spots:[
+   {id:"usj_early2",name:"USJ 特权早入场（第2日）",lat:34.6654,lng:135.4321,time:"07:30",icon:"⚡",
+    desc:"补玩：侏罗纪世界 · 任天堂世界马里奥赛车 · 夏季「水世界」表演（户外震撼）",
+    tip:"水世界表演建议提前30分钟占座（会被水淋，带雨衣或坐后排）",
+    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从USJ酒店大堂出发",alighting:"USJ正门（住客专属闸口）"}},
+   {id:"checkout_move",name:"退房 · 搬至梅田酒店",lat:34.7024,lng:135.4964,time:"15:30",icon:"🏨",
+    desc:"USJ酒店退房（可寄存行李），乘JR前往梅田，Check-in Hotel 2",
+    tip:"行李可先寄存于USJ酒店，游玩后下午取走，或直接托运至酒店",
+    transport:{mode:"JR夢咲線 + 大阪環状線",duration:"约25分钟",
+     costJPY:170,costCNY:8,
+     boarding:"樱岛站（JR）乘夢咲線至西九条（¥170）",
+     alighting:"西九条换乘大阪環状線（内回り）→大阪站（Osaka/梅田），步行约10分至酒店"}},
+   {id:"umeda_sky",name:"梅田蓝天大厦（空中庭园展望台）",lat:34.7054,lng:135.4897,time:"17:30",icon:"🌆",
+    desc:"高173米双塔展望台，黄昏大阪全景。成人¥2,000（约¥95），12岁以下免费！",
+    tip:"建议17:30–19:30到访，同时欣赏夕阳与夜景。顶层有「天空恋人锁」栏杆，带女儿来许愿！",
+    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
+     boarding:"大阪站（JR）北出口出发",alighting:"穿越JR高架线下方步行，梅田蓝天大厦入口"}},
+   {id:"umeda_dinner",name:"晚餐 · 梅田",lat:34.7024,lng:135.4964,time:"19:30",icon:"🍽️",
+    desc:"推荐：阪急百货B1–B2美食广场（选择极丰富）或梅田拉面横丁（各派拉面一条街）",
+    tip:"阪急百货B2食品馆可顺道购买明天奈良日归的零食和饮料",
+    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从蓝天大厦步行返回梅田",alighting:"阪急百货梅田总店 或 拉面横丁"}}
+  ]},
+
+ {id:5,date:"6/24",weekday:"周三",emoji:"🏯",title:"大阪历史人文游",color:"#8b5cf6",
+  center:[34.6700,135.5100],zoom:13,
+  hotel:"Dormy Inn Premium Namba",
+  spots:[
+   {id:"osaka_castle",name:"大阪城公园",lat:34.6873,lng:135.5262,time:"09:00",icon:"🏯",
+    desc:"公园免费入内，天守阁登楼¥600（约¥29）成人，12岁以下免费。游览约2–3小时",
+    tip:"西之丸庭园可俯瞰天守阁全景。建议9点到场，人少且光线好",
+    transport:{mode:"大阪地铁谷町线",duration:"约15分钟",
+     costJPY:230,costCNY:11,
+     boarding:"梅田站（大阪地铁谷町线）乘车",
+     alighting:"谷町四丁目站（1-B出口），步行约10分至大阪城公园正门"}},
+   {id:"shitennoji",name:"四天王寺",lat:34.6548,lng:135.5163,time:"12:00",icon:"🛕",
+    desc:"日本最古老佛寺（593年），主要伽蓝¥300（约¥14），外庭免费",
+    tip:"五重塔 · 石舞台 · 六时堂，适合拍照打卡",
+    transport:{mode:"大阪地铁谷町线",duration:"约8分钟",
+     costJPY:230,costCNY:11,
+     boarding:"谷町四丁目站乘谷町线（天王寺方向）",
+     alighting:"四天王寺前夕陽丘站（2号出口），步行约3分至寺庙正门"}},
+   {id:"lunch_ns",name:"午餐 · 新世界（串炸）",lat:34.6522,lng:135.5063,time:"13:30",icon:"🍢",
+    desc:"达摩（だるま）串炸本店，大阪特色炸串，约¥1,500–2,000（约¥71–95）/人",
+    tip:"注意新世界规矩：炸串蘸酱只能蘸一次！",
+    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
+     boarding:"从四天王寺向西南步行",alighting:"新世界商店街 / 通天阁附近"}},
+   {id:"tsutenkaku",name:"通天阁",lat:34.6522,lng:135.5063,time:"14:30",icon:"🗼",
+    desc:"大阪昭和风地标，展望台¥1,000（约¥48），顶层有比利肯（Biliken）神像可摸脚祈愿",
+    tip:"与女儿一起摸比利肯神像的脚，传说可实现愿望！全程约1小时。",
+    transport:{mode:"步行",duration:"约2分钟",costJPY:0,costCNY:0,
+     boarding:"从新世界商店街步行",alighting:"通天阁正门"}},
+   {id:"namba_yasaka2",name:"难波八坂神社（傍晚灯光）",lat:34.6569,lng:135.4987,time:"17:30",icon:"⛩️",
+    desc:"傍晚灯光版狮子殿，免费参观，与Day2日间版氛围完全不同",
+    tip:"傍晚灯光拍出来更有冲击力，5分钟步行圈内",
+    transport:{mode:"大阪地铁御堂筋线",duration:"约12分钟",
+     costJPY:230,costCNY:11,
+     boarding:"动物园前站（Doubutsuen-mae）乘御堂筋线（梅田方向）",
+     alighting:"难波站（Namba）步行约8分至神社"}}
+  ]},
+
+ {id:6,date:"6/25",weekday:"周四",emoji:"🐟",title:"海洋天地 · 海游馆",color:"#14b8a6",
+  center:[34.6546,135.4284],zoom:14,
+  hotel:"Dormy Inn Premium Namba",
+  spots:[
+   {id:"kaiyukan",name:"海游馆（Kaiyukan）",lat:34.6546,lng:135.4284,time:"10:00",icon:"🐋",
+    desc:"日本最大水族馆！太平洋大水槽（高8m）有鲸鲨。成人¥2,700（约¥129），3–15岁¥1,400（约¥67），建议提前网购",
+    tip:"游览约3小时。水母区 · 企鹅极地区 · 环形深海区都很适合小孩。记得带相机！",
+    transport:{mode:"大阪地铁中央线",duration:"约18分钟",
+     costJPY:230,costCNY:11,
+     boarding:"心斎橋站（或本町站）乘中央线（コスモスクエア方向）",
+     alighting:"大阪港站（Osaka-ko）1号出口，步行约5分至海游馆正门"}},
+   {id:"tempozan",name:"天保山摩天轮",lat:34.6546,lng:135.4266,time:"13:30",icon:"🎡",
+    desc:"高112米，晴天可见六甲山和明石海峡。成人¥1,200（约¥57），6–15岁¥600（约¥29），一圈约15分钟",
+    tip:"与海游馆紧邻步行3分钟，顺道必去。天保山 Marketplace 内有多家餐厅",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从海游馆正门步行",alighting:"天保山摩天轮入口（Marketplace旁）"}},
+   {id:"kaiyukan_lunch",name:"午餐 · 天保山 Marketplace",lat:34.6552,lng:135.4275,time:"14:30",icon:"🍱",
+    desc:"商业区多种美食，户外广场可休息，适合带小孩放松",
+    tip:"Naniwa食堂有大阪传统料理，或广场快餐随意觅食",
+    transport:{mode:"步行",duration:"约2分钟",costJPY:0,costCNY:0,
+     boarding:"从摩天轮步行",alighting:"天保山 Marketplace"}}
+  ]},
+
+ {id:7,date:"6/26",weekday:"周五",emoji:"🦌",title:"奈良一日游",color:"#22c55e",
+  center:[34.6800,135.7300],zoom:10,
+  hotel:"Dormy Inn Premium Namba",
+  spots:[
+   {id:"namba_kintetsu",name:"近铁难波站出发",lat:34.6662,lng:135.5012,time:"08:30",icon:"🚃",
+    desc:"乘近铁奈良线急行前往奈良，约40分钟，建议早出发",
+    tip:"近铁难波站在地下B3层，从酒店步行约10–15分钟，可乘大阪地铁至难波再步行",
+    transport:null},
+   {id:"nara_park",name:"奈良公园 · 鹿野公园",lat:34.6861,lng:135.8394,time:"09:20",icon:"🦌",
+    desc:"近1,200头自由行走神鹿！购鹿饼（¥200/包，约¥10）喂食。公园免费入内。5岁必爱！",
+    tip:"注意：鹿可能追着抢鹿饼，保护好女儿！鹿饼不要让鹿提前看见，否则会被包围",
+    transport:{mode:"近铁奈良线 急行",duration:"约40分钟",
+     costJPY:1580,costCNY:75,
+     boarding:"近铁难波站（Osaka Namba）B3层，乘奈良线急行（奈良方向）",
+     alighting:"近铁奈良站下车，出站后向东步行约10分至奈良公园正门"}},
+   {id:"todaiji",name:"东大寺",lat:34.6884,lng:135.8398,time:"10:30",icon:"🏛️",
+    desc:"世界文化遗产，高15米奈良大佛。成人¥800（约¥38），小学生¥400（约¥19），5岁以下免费！",
+    tip:"大佛殿柱子有「大佛鼻孔大小」的方洞，小朋友可以尝试钻过去，据说钻过可保佑健康！",
+    transport:{mode:"步行（公园内）",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从奈良公园步行向北",alighting:"东大寺南大门（正门）"}},
+   {id:"wakakusa",name:"若草山",lat:34.6854,lng:135.8472,time:"12:00",icon:"⛰️",
+    desc:"三重叠连绿山，鹿群漫步，开阔视野。入山¥150（约¥7）成人，小学生以下免费",
+    tip:"视野极佳！草坡上带女儿玩耍、野餐，非常适合。徒步至山顶约30分钟",
+    transport:{mode:"步行",duration:"约10分钟",costJPY:0,costCNY:0,
+     boarding:"从东大寺转向东南方向步行",alighting:"若草山入口（一之鸟居前）"}},
+   {id:"nara_lunch",name:"午餐 · 近铁奈良站附近",lat:34.6837,lng:135.8295,time:"13:00",icon:"🍱",
+    desc:"推荐：志津香（柿叶寿司），奈良传统料理，约¥1,200–1,800（约¥57–86）/人",
+    tip:"柿叶寿司用柿树叶包裹的押寿司，清香独特，是奈良必吃",
+    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
+     boarding:"从若草山步行沿三条通向西至近铁奈良站",alighting:"近铁奈良站附近商店街"}},
+   {id:"ikoma_station",name:"近铁生驹站（转缆车）",lat:34.6909,lng:135.7035,time:"14:30",icon:"🚃",
+    desc:"乘近铁奈良线返回生驹站，换乘宝山线缆车上山至游乐园",
+    tip:"",
+    transport:{mode:"近铁奈良线",duration:"约15分钟",
+     costJPY:410,costCNY:20,
+     boarding:"近铁奈良站乘奈良线（大阪难波方向）",
+     alighting:"近铁生驹站（Ikoma）下车，步行5分至宝山线鸟居前站"}},
+   {id:"ikoma_park",name:"生驒山上游乐园 + 宝山线缆车",lat:34.6866,lng:135.6984,time:"15:00",icon:"🎡",
+    desc:"昭和复古山顶游乐园，免费入园，项目自费约¥200–500/项。缆车往返¥1,100（约¥52）成人。3–8岁最合适！",
+    tip:"世界少见山顶游乐园！缆车本身就是体验。营业10:00–17:00，17:00前务必乘缆车下山",
+    transport:{mode:"宝山线缆车（Hozanji）",duration:"约16分钟",
+     costJPY:1100,costCNY:52,
+     boarding:"宝山线鸟居前站，乘缆车至宝山站，换乘悬崖线至生駒山上站",
+     alighting:"生駒山上站（终点），步行即达游乐园入口"}}
+  ]},
+
+ {id:8,date:"6/27",weekday:"周六",emoji:"✈️",title:"购物 · 启程回港",color:"#6366f1",
+  center:[34.6937,135.5022],zoom:12,
+  hotel:"— 退房离开 —",
+  spots:[
+   {id:"shopping_final",name:"心斋桥 / 梅田 最后购物",lat:34.6723,lng:135.5023,time:"08:30",icon:"🛍️",
+    desc:"集中采购：松本清 · COSMOS药妆 · 大国药妆 · 零食伴手礼",
+    tip:"退房前把行李寄存酒店或车站coin locker（¥300–500），轻装购物，临走取回",
+    transport:null},
+   {id:"nankai_namba",name:"南海难波站 出发 → KIX",lat:34.6657,lng:135.5013,time:"10:30",icon:"🚃",
+    desc:"乘南海电铁空港急行前往关西机场，建议出发前2小时到机场",
+    tip:"建议乘Rapi:t特急（¥1,800，约¥86，约38分，有固定座位），更舒适；或空港急行¥1,070",
+    transport:{mode:"大阪地铁 + 南海电铁",duration:"约50分钟",
+     costJPY:1300,costCNY:62,
+     boarding:"酒店附近地铁至难波，步行至南海难波站，乘空港急行（KIX方向）",
+     alighting:"关西国际机场（KIX）T1，进入值机大厅"}},
+   {id:"kix_dep",name:"关西机场 KIX 出发回港",lat:34.4347,lng:135.2443,time:"12:30",icon:"✈️",
+    desc:"推荐：HK Express 或同时段其他回港直飞，建议12:30–14:00出发航班",
+    tip:"抵达HKG约16:00–18:00，包车返回南沙，傍晚到家",
+    transport:{mode:"（已在机场，等待登机）",duration:"—",costJPY:0,costCNY:0,
+     boarding:"KIX T1 出发大厅，提前2小时办理值机",
+     alighting:"HKG 抵达后包车返回南沙，约1–1.5小时"}}
+  ]}
+];
+
+// ══════════════════════════════════════════
+// Map & Timeline Init
+// ══════════════════════════════════════════
+let map, markers=[], polylines=[], currentDay=1, currentSpotIdx=-1;
+
+function initMap(){
+  map=L.map('map',{zoomControl:true}).setView([34.67,135.50],12);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{
+    attribution:'© <a href="https://carto.com/">CARTO</a> © <a href="https://osm.org/copyright">OSM</a>',
+    subdomains:'abcd',maxZoom:19
+  }).addTo(map);
+}
+
+function makeIcon(color,num){
+  return L.divIcon({
+    className:'',
+    html:`<div style="width:28px;height:28px;border-radius:50%;background:${color};border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,.3);display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:800;">${num}</div>`,
+    iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-16]
+  });
+}
+
+function transportHTML(spot){
+  if(!spot.transport) return `<div style="color:#6b7280;font-size:11px;font-style:italic;">出发点，无前置交通信息</div>`;
+  const t=spot.transport;
+  if(t.costJPY===0&&t.mode==="步行")
+    return `<div class="tp-row"><div class="tp-icon">🚶</div><div><div class="tp-label">交通方式</div><div class="tp-val">步行 · ${t.duration}</div></div></div>
+    <div class="tp-station">📍 ${t.boarding}<br>📍 ${t.alighting}</div>`;
+  return `<div class="tp-row"><div class="tp-icon">🚃</div><div><div class="tp-label">交通方式</div><div class="tp-val">${t.mode}</div></div></div>
+  <div class="tp-row"><div class="tp-icon">⏱</div><div><div class="tp-label">所需时间</div><div class="tp-val">${t.duration}</div></div></div>
+  <div class="tp-row"><div class="tp-icon">💴</div><div><div class="tp-label">费用</div><div class="tp-val">${t.costJPY>0?`¥${t.costJPY.toLocaleString()}（约¥${t.costCNY}人民币）/人`:'免费'}</div></div></div>
+  <div class="tp-station">🚉 上车：${t.boarding}<br>🚉 下车：${t.alighting}</div>`;
+}
+
+function buildPopup(spot){
+  const tipHTML=spot.tip?`<div class="tp-tip">💡 ${spot.tip}</div>`:'';
+  return `<div class="tp-popup">
+    <div class="tp-name">${spot.icon} ${spot.name}</div>
+    <div style="color:#374151;font-size:12px;margin-bottom:8px;">${spot.desc}</div>
+    ${spot.transport!==null?'<div style="border-top:1px solid #e5e7eb;padding-top:8px;margin-top:4px;"><div class="tp-label" style="margin-bottom:5px;">从上一站前往此处</div>'+transportHTML(spot)+'</div>':''}
+    ${tipHTML}
+  </div>`;
+}
+
+function showDay(dayId){
+  currentDay=dayId;
+  currentSpotIdx=-1;
+
+  // Clear old layers
+  markers.forEach(m=>map.removeLayer(m));
+  polylines.forEach(p=>map.removeLayer(p));
+  markers=[];polylines=[];
+
+  const day=DAYS.find(d=>d.id===dayId);
+  if(!day)return;
+
+  // Update tabs
+  document.querySelectorAll('.day-tab').forEach(t=>{
+    t.classList.toggle('active',parseInt(t.dataset.day)===dayId);
+    if(parseInt(t.dataset.day)===dayId) t.style.background=day.color;
+    else{t.style.background='';t.style.color='';}
+  });
+
+  // Build timeline
+  const panel=document.getElementById('timelinePanel');
+  panel.innerHTML=`<div class="tl-day-header">📅 ${day.date} ${day.weekday}｜${day.title}｜🏨 ${day.hotel}</div>`;
+
+  day.spots.forEach((spot,i)=>{
+    const isLast=i===day.spots.length-1;
+    const el=document.createElement('div');
+    el.className='tl-spot';
+    el.dataset.idx=i;
+    el.innerHTML=`<div class="tl-time">${spot.time}</div>
+      <div class="tl-dot-wrap"><div class="tl-dot" style="background:${day.color}"></div>${!isLast?`<div class="tl-line"></div>`:''}</div>
+      <div class="tl-info"><div class="tl-name">${spot.icon} ${spot.name}</div><div class="tl-desc">${spot.desc.slice(0,60)}${spot.desc.length>60?'…':''}</div></div>`;
+    el.addEventListener('click',()=>selectSpot(dayId,i));
+    panel.appendChild(el);
+  });
+
+  // Add markers
+  const latlngs=[];
+  day.spots.forEach((spot,i)=>{
+    if(spot.lat===0)return;
+    const marker=L.marker([spot.lat,spot.lng],{icon:makeIcon(day.color,i+1)})
+      .addTo(map)
+      .bindPopup(buildPopup(spot),{maxWidth:300,minWidth:260});
+    marker.on('click',()=>selectSpot(dayId,i));
+    markers.push(marker);
+    latlngs.push([spot.lat,spot.lng]);
+  });
+
+  // Draw polyline
+  if(latlngs.length>1){
+    const pl=L.polyline(latlngs,{color:day.color,weight:2.5,opacity:.6,dashArray:'6,4'}).addTo(map);
+    polylines.push(pl);
+  }
+
+  // Fit bounds
+  if(latlngs.length>0){
+    if(latlngs.length===1) map.setView(latlngs[0],14);
+    else map.fitBounds(L.latLngBounds(latlngs),{padding:[30,30]});
+  }
+}
+
+function selectSpot(dayId,idx){
+  const day=DAYS.find(d=>d.id===dayId);
+  const spot=day.spots[idx];
+  currentSpotIdx=idx;
+
+  // Highlight timeline item
+  document.querySelectorAll('.tl-spot').forEach((el,i)=>{
+    el.classList.toggle('active',i===idx);
+  });
+
+  // Scroll timeline to item
+  const items=document.querySelectorAll('.tl-spot');
+  if(items[idx]) items[idx].scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // Fly map to spot and open popup
+  if(markers[idx]){
+    map.flyTo([spot.lat,spot.lng],15,{duration:.8});
+    setTimeout(()=>markers[idx].openPopup(),800);
+  }
+}
+
+// Build day tabs
+function buildTabs(){
+  const tabs=document.getElementById('dayTabs');
+  DAYS.forEach(day=>{
+    const btn=document.createElement('button');
+    btn.className='day-tab';
+    btn.dataset.day=day.id;
+    btn.innerHTML=`${day.emoji} ${day.date}<br><span style="font-size:10px;opacity:.8">${day.weekday}</span>`;
+    btn.style.lineHeight='1.3';
+    btn.addEventListener('click',()=>showDay(day.id));
+    tabs.appendChild(btn);
+  });
+}
+
+// Init
+window.addEventListener('DOMContentLoaded',()=>{
+  initMap();
+  buildTabs();
+  showDay(1);
+});
+</script>
+</body>
+</html>
