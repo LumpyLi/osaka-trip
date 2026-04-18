@@ -133,7 +133,7 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
     <span class="tag">✈ 直飞 HKG ↔ KIX</span>
     <span class="tag">🎂 6/22 USJ 生日惊喜</span>
     <span class="tag">🏨 全程仅2家酒店</span>
-    <span class="tag">🎡 生驒山游乐园（Day 2）</span>
+    <span class="tag">🐋 海游馆 + 生驹山游乐园</span>
   </div>
 </div>
 
@@ -226,7 +226,8 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
     <div class="tip-item">提前购买 USJ 门票 + Express Pass（官网/Klook）</div>
     <div class="tip-item">USJ 官网登记女儿生日（Birthday Badge）</div>
     <div class="tip-item">海游馆提前网购票（跳过排队）</div>
-    <div class="tip-item">确认生驒山游乐园 6/21（周日）营业（查官网日历）</div>
+    <div class="tip-item">确认生驒山游乐园 6/26（周五）营业（工作日班次较少，查官网日历）</div>
+    <div class="tip-item">HARUKAS 300 展望台 Klook 买电子票略便宜</div>
   </div>
   <div class="tip-card">
     <div class="tip-title">💳 支付 &amp; 通讯</div>
@@ -240,7 +241,7 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
     <div class="tip-item">大阪6月下旬进入梅雨，带折叠伞或雨衣</div>
     <div class="tip-item">气温22–30°C，湿热，穿透气衣物</div>
     <div class="tip-item">海游馆/USJ室内为主，雨天影响小</div>
-    <div class="tip-item">若草山 / 奈良选晴天更好</div>
+    <div class="tip-item">生驹山 / 奈良选晴天更好，雨天缆车和鹿都受影响</div>
   </div>
   <div class="tip-card">
     <div class="tip-title">📱 推荐 App</div>
@@ -257,10 +258,10 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
     <div class="tip-item">每天下午安排30分钟休息（咖啡厅/便利店）</div>
   </div>
   <div class="tip-card">
-    <div class="tip-title">🎁 额外加入景点说明</div>
-    <div class="tip-item"><b>道顿堀运河游船</b>：固力果招牌最佳视角，晚间更美</div>
-    <div class="tip-item"><b>奈良鹿野公园</b>：与若草山、东大寺连续游览，零成本</div>
-    <div class="tip-item"><b>生驒山游乐园</b>（原有）：免费入园，缆车独特，适合5岁</div>
+    <div class="tip-title">🎁 重点景点说明</div>
+    <div class="tip-item"><b>海游馆 + 天保山</b>：USJ 港 Captain Line 渡轮直达，10 分钟船程</div>
+    <div class="tip-item"><b>天王寺动物园 + HARUKAS</b>：难波 1 站之距，亲子友好，日落最佳</div>
+    <div class="tip-item"><b>生驒山 + 奈良合并日</b>：上午生驹山游乐园，下午奈良公园 + 东大寺</div>
   </div>
 </div>
 
@@ -296,33 +297,45 @@ const DAYS = [
      boarding:"从酒店大堂出发步行",alighting:"Universal CityWalk 入口"}}
   ]},
 
- {id:2,date:"6/21",weekday:"周日",emoji:"🎡",title:"生驒山上游乐园",color:"#f97316",
-  center:[34.6900,135.6500],zoom:11,
+ {id:2,date:"6/21",weekday:"周日",emoji:"🐋",title:"海洋天地 · 海游馆",color:"#14b8a6",
+  center:[34.6600,135.4300],zoom:14,
   hotel:"Hotel Universal Port（第2晚）",
   spots:[
-   {id:"usj_dep_ikoma",name:"USJ酒店出发（前往生驒山）",lat:34.6647,lng:135.4328,time:"09:00",icon:"🚃",
-    desc:"早出发，乘JR+近铁前往生驒山。建议在酒店用早餐，备好饮料零食",tip:"",transport:null},
-   {id:"ikoma_dep",name:"近铁生驒站 · 换宝山线缆车",lat:34.6909,lng:135.7035,time:"10:10",icon:"🚃",
-    desc:"抵达生驒站，步行约5分至宝山线「鸟居前站」，换乘缆车上山。缆车往返¥1,100（约¥52）成人",
-    tip:"宝山线是日本现存极少的山岳悬挂式缆车，车厢复古可爱，本身就是特别体验！",
-    transport:{mode:"JR夢咲線 + 大阪環状線 + 近铁奈良线",duration:"约65分钟",
-     costJPY:780,costCNY:37,
-     boarding:"USJ酒店步行5分至樱岛站，乘JR夢咲線至西九条（¥170），换大阪環状線（内回り）至鶴橋",
-     alighting:"鶴橋站换乘近铁奈良线急行（奈良方向），约15分至生驒站（¥410）下车，步行5分至鸟居前站"}},
-   {id:"ikoma_park",name:"生驒山上游乐园",lat:34.6866,lng:135.6984,time:"10:30",icon:"🎡",
-    desc:"昭和复古山顶游乐园！免费入园，项目自费约¥200–500/项（单轨、旋转木马等）。3–8岁最合适！",
-    tip:"世界少见的山顶游乐园，女儿绝对惊喜。营业约10:00–17:00，16:30前务必开始下山",
-    transport:{mode:"宝山线缆车（宝山寺线 → 生駒山上线）",duration:"约16分钟",
-     costJPY:1100,costCNY:52,
-     boarding:"鸟居前站乘缆车至宝山寺站，换乘生駒山上线",
-     alighting:"生駒山上站（终点），步行即达游乐园入口"}},
-   {id:"ikoma_return",name:"缆车下山 · 返回USJ酒店",lat:34.6647,lng:135.4328,time:"17:00",icon:"🏨",
-    desc:"下山后乘近铁 + JR返回酒店，约1小时。晚餐在CityWalk解决，早休息备战明天生日！",
-    tip:"回程可在生驒站便利店补给，或回CityWalk用餐",
-    transport:{mode:"宝山线缆车 + 近铁奈良线 + JR",duration:"约70分钟",
-     costJPY:1280,costCNY:61,
-     boarding:"生駒山上站乘缆车下山至鸟居前站，步行至近铁生驒站",
-     alighting:"近铁生驒站乘奈良线急行至鶴橋，换JR大阪環状線至西九条，再乘夢咲線至樱岛站"}}
+   {id:"usj_port_dep",name:"USJ 酒店出发",lat:34.6647,lng:135.4328,time:"09:30",icon:"🏨",
+    desc:"酒店早餐后出发。USJ 港有 Captain Line 渡轮直达天保山，船程约 10 分钟",tip:"",transport:null},
+   {id:"captain_line",name:"Captain Line 渡轮 · USJ 港 → 天保山",lat:34.6567,lng:135.4275,time:"10:00",icon:"⛴️",
+    desc:"单程成人 ¥800（约 ¥38），儿童 ¥400（约 ¥19），往返 ¥1,500/¥700",
+    tip:"船舱宽敞，窗外是大阪湾景色，比绕陆路快很多",
+    transport:{mode:"步行 + Captain Line 渡轮",duration:"约15分钟",
+     costJPY:800,costCNY:38,
+     boarding:"USJ 酒店步行 10 分至 Universal City Port（USJ 园外码头）",
+     alighting:"天保山码头下船，步行 3 分至海游馆"}},
+   {id:"kaiyukan_d2",name:"海游馆（Kaiyukan）",lat:34.6546,lng:135.4284,time:"10:30",icon:"🐋",
+    desc:"日本最大水族馆！太平洋大水槽（高 8m）有鲸鲨。成人 ¥2,700（约 ¥129），3–15 岁 ¥1,400（约 ¥67）",
+    tip:"游览约 3 小时。水母区 · 企鹅极地区 · 环形深海区都很适合小孩。提前网购跳过排队",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从天保山码头步行",alighting:"海游馆正门"}},
+   {id:"tempozan_lunch",name:"午餐 · 天保山 Marketplace",lat:34.6552,lng:135.4275,time:"13:30",icon:"🍱",
+    desc:"商业区多种美食，户外广场可休息，适合带小孩放松",
+    tip:"Naniwa 食堂有大阪传统料理，或广场快餐随意觅食",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从海游馆步行",alighting:"天保山 Marketplace"}},
+   {id:"tempozan_wheel",name:"天保山摩天轮",lat:34.6546,lng:135.4266,time:"14:30",icon:"🎡",
+    desc:"高 112 米，晴天可见六甲山和明石海峡。成人 ¥1,200（约 ¥57），6–15 岁 ¥600（约 ¥29），一圈约 15 分钟",
+    tip:"与海游馆紧邻，顺道必去",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从 Marketplace 步行",alighting:"天保山摩天轮入口"}},
+   {id:"ferry_back",name:"渡轮返回 USJ 酒店",lat:34.6647,lng:135.4328,time:"15:30",icon:"⛴️",
+    desc:"下午回酒店休整，泳池或 CityWalk 放松，为明天生日 USJ 储能",
+    tip:"酒店有室内泳池，女儿可以游一会",
+    transport:{mode:"Captain Line 渡轮",duration:"约10分钟",
+     costJPY:800,costCNY:38,
+     boarding:"天保山码头",alighting:"Universal City Port，步行回酒店"}},
+   {id:"citywalk_d2",name:"CityWalk 晚餐",lat:34.6655,lng:135.4307,time:"18:30",icon:"🍽️",
+    desc:"早休息备战明天生日 USJ 特权早入场！",
+    tip:"推荐和民居酒屋或 Hard Rock Cafe，氛围热闹",
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从酒店步行",alighting:"Universal CityWalk"}}
   ]},
 
  {id:3,date:"6/22",weekday:"周一",emoji:"🎂",title:"🎂 生日！USJ（唯一一天）",color:"#ec4899",
@@ -439,66 +452,92 @@ const DAYS = [
      alighting:"梅田站出站，步行约15分至梅田蓝天大厦（JR大阪站北口方向）"}}
   ]},
 
- {id:6,date:"6/25",weekday:"周四",emoji:"🐟",title:"海洋天地 · 海游馆",color:"#14b8a6",
-  center:[34.6546,135.4284],zoom:14,
+ {id:6,date:"6/25",weekday:"周四",emoji:"🦁",title:"天王寺动物园 · 阿倍野 HARUKAS",color:"#14b8a6",
+  center:[34.6500,135.5100],zoom:14,
   hotel:"Dormy Inn Premium Namba",
   spots:[
-   {id:"kaiyukan",name:"海游馆（Kaiyukan）",lat:34.6546,lng:135.4284,time:"10:00",icon:"🐋",
-    desc:"日本最大水族馆！太平洋大水槽（高8m）有鲸鲨。成人¥2,700（约¥129），3–15岁¥1,400（约¥67），建议提前网购",
-    tip:"游览约3小时。水母区 · 企鹅极地区 · 环形深海区都很适合小孩。记得带相机！",
-    transport:{mode:"大阪地铁中央线",duration:"约18分钟",
+   {id:"tennoji_zoo",name:"天王寺动物园",lat:34.6515,lng:135.5072,time:"10:00",icon:"🦁",
+    desc:"大阪市中心百年动物园，狮子、老虎、长颈鹿、北极熊。成人 ¥500（约 ¥24），小中学生 ¥200（约 ¥10），未就学儿童免费",
+    tip:"游览约 2–3 小时。紧邻天王寺公园，可带水和零食野餐",
+    transport:{mode:"大阪地铁御堂筋线",duration:"约8分钟",
      costJPY:230,costCNY:11,
-     boarding:"心斎橋站（或本町站）乘中央线（コスモスクエア方向）",
-     alighting:"大阪港站（Osaka-ko）1号出口，步行约5分至海游馆正门"}},
-   {id:"tempozan",name:"天保山摩天轮",lat:34.6546,lng:135.4266,time:"13:30",icon:"🎡",
-    desc:"高112米，晴天可见六甲山和明石海峡。成人¥1,200（约¥57），6–15岁¥600（约¥29），一圈约15分钟",
-    tip:"与海游馆紧邻步行3分钟，顺道必去。天保山 Marketplace 内有多家餐厅",
-    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
-     boarding:"从海游馆正门步行",alighting:"天保山摩天轮入口（Marketplace旁）"}},
-   {id:"kaiyukan_lunch",name:"午餐 · 天保山 Marketplace",lat:34.6552,lng:135.4275,time:"14:30",icon:"🍱",
-    desc:"商业区多种美食，户外广场可休息，适合带小孩放松",
-    tip:"Naniwa食堂有大阪传统料理，或广场快餐随意觅食",
-    transport:{mode:"步行",duration:"约2分钟",costJPY:0,costCNY:0,
-     boarding:"从摩天轮步行",alighting:"天保山 Marketplace"}}
+     boarding:"难波站乘御堂筋线（天王寺方向）",
+     alighting:"动物园前站（5号出口），步行约 5 分至动物园入口"}},
+   {id:"qs_mall_lunch",name:"午餐 · あべのキューズモール（Q's Mall）",lat:34.6459,lng:135.5140,time:"12:30",icon:"🍱",
+    desc:"阿倍野 Q's Mall 餐厅选择多，适合家庭，出动物园南门不远",
+    tip:"商场里有快餐、亲子餐厅、药妆店，可同时休息 + 购物",
+    transport:{mode:"步行",duration:"约10分钟",costJPY:0,costCNY:0,
+     boarding:"从动物园南门出发",alighting:"Q's Mall（阿倍野駅旁）"}},
+   {id:"harukas_300",name:"阿倍野 HARUKAS 300 展望台",lat:34.6458,lng:135.5136,time:"14:00",icon:"🗼",
+    desc:"日本第二高摩天楼（300 米）！360° 俯瞰大阪全景。成人 ¥2,000（约 ¥95），中高生 ¥1,200（约 ¥57），小学生 ¥700（约 ¥33），4 岁以上幼儿 ¥500",
+    tip:"天台视野比梅田蓝天更开阔，16 楼'天空花园'免费观景。Klook 买电子票略便宜",
+    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从 Q's Mall 步行",alighting:"阿倍野 HARUKAS 16 楼售票处"}},
+   {id:"harukas_sunset",name:"HARUKAS 看日落",lat:34.6458,lng:135.5136,time:"17:00",icon:"🌇",
+    desc:"夏至前后日落约 19:00，可在展望台慢慢看白天 + 夕阳",
+    tip:"停留 1.5 小时足够，避开 18:00 后人流高峰",
+    transport:{mode:"停留原地",duration:"—",costJPY:0,costCNY:0,
+     boarding:"展望台 60 楼",alighting:"展望台 60 楼"}},
+   {id:"namba_dinner_d6",name:"返回难波晚餐",lat:34.6657,lng:135.5013,time:"19:30",icon:"🍽️",
+    desc:"乘御堂筋线 1 站回难波，约 5 分钟",
+    tip:"难波千日前回转寿司 / 一风堂拉面方便收尾",
+    transport:{mode:"大阪地铁御堂筋线",duration:"约5分钟",
+     costJPY:180,costCNY:9,
+     boarding:"天王寺站乘御堂筋线（梅田方向）",
+     alighting:"难波站下车，步行回 Dormy Inn Namba"}}
   ]},
 
- {id:7,date:"6/26",weekday:"周五",emoji:"🦌",title:"奈良一日游",color:"#22c55e",
-  center:[34.6800,135.7300],zoom:10,
+ {id:7,date:"6/26",weekday:"周五",emoji:"🎡",title:"生驹山 + 奈良合并日",color:"#22c55e",
+  center:[34.6850,135.7500],zoom:10,
   hotel:"Dormy Inn Premium Namba",
   spots:[
-   {id:"namba_kintetsu",name:"近铁难波站出发",lat:34.6662,lng:135.5012,time:"08:30",icon:"🚃",
-    desc:"乘近铁奈良线急行前往奈良，约40分钟，建议早出发",
-    tip:"近铁难波站在地下B3层，从酒店步行约10–15分钟，可乘大阪地铁至难波再步行",
+   {id:"namba_kintetsu_d7",name:"近铁大阪难波站出发",lat:34.6662,lng:135.5012,time:"08:30",icon:"🚃",
+    desc:"乘近铁奈良线急行前往生驒站，争取午前完成山上游玩",
+    tip:"酒店步行 10–15 分钟至近铁难波站 B3 层",
     transport:null},
-   {id:"nara_park",name:"奈良公园 · 鹿野公园",lat:34.6861,lng:135.8394,time:"09:20",icon:"🦌",
-    desc:"近1,200头自由行走神鹿！购鹿饼（¥200/包，约¥10）喂食。公园免费入内。5岁必爱！",
-    tip:"注意：鹿可能追着抢鹿饼，保护好女儿！鹿饼不要让鹿提前看见，否则会被包围",
-    transport:{mode:"近铁奈良线 急行",duration:"约40分钟",
-     costJPY:1580,costCNY:75,
-     boarding:"近铁难波站（Osaka Namba）B3层，乘奈良线急行（奈良方向）",
-     alighting:"近铁奈良站下车，出站后向东步行约10分至奈良公园正门"}},
-   {id:"todaiji",name:"东大寺",lat:34.6884,lng:135.8398,time:"10:30",icon:"🏛️",
-    desc:"世界文化遗产，高15米奈良大佛。成人¥800（约¥38），小学生¥400（约¥19），5岁以下免费！",
-    tip:"大佛殿柱子有「大佛鼻孔大小」的方洞，小朋友可以尝试钻过去，据说钻过可保佑健康！",
-    transport:{mode:"步行（公园内）",duration:"约5分钟",costJPY:0,costCNY:0,
-     boarding:"从奈良公园步行向北",alighting:"东大寺南大门（正门）"}},
-   {id:"wakakusa",name:"若草山",lat:34.6854,lng:135.8472,time:"12:00",icon:"⛰️",
-    desc:"三重叠连绿山，鹿群漫步，开阔视野。入山¥150（约¥7）成人，小学生以下免费",
-    tip:"视野极佳！草坡上带女儿玩耍、野餐，非常适合。徒步至山顶约30分钟",
-    transport:{mode:"步行",duration:"约10分钟",costJPY:0,costCNY:0,
-     boarding:"从东大寺转向东南方向步行",alighting:"若草山入口（一之鸟居前）"}},
-   {id:"nara_lunch",name:"午餐 · 近铁奈良站附近",lat:34.6837,lng:135.8295,time:"13:00",icon:"🍱",
-    desc:"推荐：志津香（柿叶寿司），奈良传统料理，约¥1,200–1,800（约¥57–86）/人",
+   {id:"ikoma_sta",name:"近铁生驒站 · 换宝山线缆车",lat:34.6909,lng:135.7035,time:"09:00",icon:"🚃",
+    desc:"抵达生驒站，步行约 5 分至宝山线「鸟居前站」，换乘缆车上山。缆车往返 ¥1,100（约 ¥52）成人",
+    tip:"宝山线是日本现存极少的山岳悬挂式缆车，车厢复古可爱，本身就是特别体验！注意：生驒站不是近铁奈良站",
+    transport:{mode:"近铁奈良线 急行",duration:"约25分钟",
+     costJPY:540,costCNY:26,
+     boarding:"近铁大阪难波站 B3 层，乘奈良线急行（奈良方向）",
+     alighting:"生驒站下车（注意不是近铁奈良站），步行 5 分至鸟居前站"}},
+   {id:"ikoma_park_d7",name:"生驒山上游乐园",lat:34.6866,lng:135.6984,time:"09:30",icon:"🎡",
+    desc:"昭和复古山顶游乐园！免费入园，项目自费约 ¥200–500/项（单轨、旋转木马等）。3–8 岁最合适！",
+    tip:"10:00 开园，略早到山上等候。玩约 3 小时，12:30 前下山以保证奈良时间",
+    transport:{mode:"宝山线缆车（宝山寺线 → 生駒山上线）",duration:"约16分钟",
+     costJPY:1100,costCNY:52,
+     boarding:"鸟居前站乘缆车至宝山寺站，换乘生駒山上线",
+     alighting:"生駒山上站（终点），步行即达游乐园入口"}},
+   {id:"ikoma_to_nara",name:"缆车下山 · 前往奈良",lat:34.6837,lng:135.8295,time:"12:30",icon:"🦌",
+    desc:"乘缆车下山回生驒站，换近铁奈良线急行前往近铁奈良站",
+    tip:"缆车下山约 8 分钟，换近铁奈良线 1 班 10 分钟一趟，不用等太久",
+    transport:{mode:"宝山线缆车 + 近铁奈良线急行",duration:"约35分钟",
+     costJPY:460,costCNY:22,
+     boarding:"生駒山上站乘缆车下山 → 鸟居前站 → 生驒站乘奈良线急行（奈良方向）",
+     alighting:"近铁奈良站，出站后向东步行约 10 分至奈良公园"}},
+   {id:"nara_lunch_d7",name:"午餐 · 近铁奈良站附近",lat:34.6837,lng:135.8295,time:"13:30",icon:"🍱",
+    desc:"推荐：志津香（柿叶寿司），奈良传统料理，约 ¥1,200–1,800（约 ¥57–86）/人",
     tip:"柿叶寿司用柿树叶包裹的押寿司，清香独特，是奈良必吃",
-    transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
-     boarding:"从若草山步行沿三条通向西至近铁奈良站",alighting:"近铁奈良站附近商店街"}},
-   {id:"return_namba_nara",name:"返回难波 · 自由时间",lat:34.6662,lng:135.5012,time:"14:30",icon:"🚃",
-    desc:"乘近铁奈良线返回难波，约40分钟。下午可在难波自由活动，或提前回酒店休整",
-    tip:"近铁奈良站有伴手礼可顺便购买：奈良吉野葛产品、柿の葉寿司打包带走",
+    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从近铁奈良站出来",alighting:"东向商店街"}},
+   {id:"nara_park_d7",name:"奈良公园 · 鹿野公园",lat:34.6861,lng:135.8394,time:"14:30",icon:"🦌",
+    desc:"近 1,200 头自由行走神鹿！购鹿饼（¥200/包，约 ¥10）喂食。公园免费入内。5 岁必爱！",
+    tip:"鹿饼不要提前让鹿看见，否则会被包围。保护好女儿",
+    transport:{mode:"步行",duration:"约10分钟",costJPY:0,costCNY:0,
+     boarding:"从近铁奈良站向东步行",alighting:"奈良公园正门"}},
+   {id:"todaiji_d7",name:"东大寺",lat:34.6884,lng:135.8398,time:"15:30",icon:"🏛️",
+    desc:"世界文化遗产，高 15 米奈良大佛。成人 ¥800（约 ¥38），小学生 ¥400（约 ¥19），5 岁以下免费！",
+    tip:"大佛鼻孔方洞传说钻过保佑健康。东大寺后二月堂观景台视野开阔，可替代若草山",
+    transport:{mode:"步行（公园内）",duration:"约5分钟",costJPY:0,costCNY:0,
+     boarding:"从奈良公园向北步行",alighting:"东大寺南大门"}},
+   {id:"return_namba_d7",name:"返回难波晚餐",lat:34.6662,lng:135.5012,time:"18:00",icon:"🚃",
+    desc:"乘近铁奈良线急行返回，约 40 分钟。返回后可泡温泉，洗掉一天疲惫",
+    tip:"近铁奈良站有伴手礼可顺便购买：奈良吉野葛、柿叶寿司打包带走",
     transport:{mode:"近铁奈良线 急行",duration:"约40分钟",
      costJPY:680,costCNY:32,
      boarding:"近铁奈良站乘奈良线急行（大阪难波方向）",
-     alighting:"近铁大阪难波站下车，步行约5分至Dormy Inn Namba"}}
+     alighting:"近铁大阪难波站下车，步行 5 分至 Dormy Inn Namba"}}
   ]},
 
  {id:8,date:"6/27",weekday:"周六",emoji:"✈️",title:"购物 · 启程回港",color:"#6366f1",
