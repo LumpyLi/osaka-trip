@@ -144,7 +144,7 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
 <div class="info-row">
   <div class="info-card"><div class="lbl">出发 / 返回</div><div class="val">6/20 → 6/27</div><div class="sub">8天7晚</div></div>
   <div class="info-card"><div class="lbl">出行人数</div><div class="val">2大1小</div><div class="sub">女儿 6/22 满5岁</div></div>
-  <div class="info-card"><div class="lbl">住宿安排</div><div class="val">仅2家酒店</div><div class="sub">USJ酒店3晚 + 难波4晚</div></div>
+  <div class="info-card"><div class="lbl">住宿安排</div><div class="val">仅2家酒店</div><div class="sub">USJ Port 3晚 + Eslead Kuromon 4晚</div></div>
   <div class="info-card"><div class="lbl">签证</div><div class="val">⚠ 需提前办理</div><div class="sub">内地护照，建议5月中前递签</div></div>
 </div>
 
@@ -180,14 +180,15 @@ footer{text-align:center;padding:16px;color:var(--gray);font-size:11px;border-to
     <div style="font-size:10px;color:#c2410c;margin-top:8px;">⚠ 此酒店略超600–1000 HKD预算，但早入场体验是生日关键加分，建议保留</div>
   </div>
   <div class="hotel-card" style="border-top:3px solid #8b5cf6;">
-    <div class="hotel-phase" style="color:#8b5cf6;">Hotel 2 · 难波区（4晚）6/23–6/27</div>
-    <div class="hotel-name">Dormy Inn Premium Namba</div>
-    <div class="hotel-nights">千日前通步行3分钟 · 道顿堀步行8分钟 · 有天然温泉</div>
-    <div class="hotel-price" style="color:#8b5cf6;">约 ¥14,000–20,000/晚（约¥667–952）</div>
-    <div class="hotel-pro">天然温泉，每晚带小朋友泡汤极舒适</div>
-    <div class="hotel-pro">距心斋桥、难波、海游馆、奈良出发点均便捷</div>
-    <div class="hotel-pro">备选：Cross Hotel Osaka（心斋桥，设计感强）</div>
-    <div class="hotel-pro">6/27 早上退房，行李寄存后轻装购物</div>
+    <div class="hotel-phase" style="color:#8b5cf6;">Hotel 2 · 难波黑门（4晚）6/23–6/27</div>
+    <div class="hotel-name">ESLEAD HOTEL Namba Kuromon<span class="new-badge">2025/9 新开</span></div>
+    <div class="hotel-nights">日本桥站 8 号口步行 5 分 · 黑门市场步行 3 分 · 公寓式房间带厨房 + 洗衣机</div>
+    <div class="hotel-price" style="color:#8b5cf6;">约 ¥12,000–18,000/晚（约¥571–857）</div>
+    <div class="hotel-pro">独立公寓 30㎡+，房内厨房 / 冰箱 / 洗衣机 / 烘干机</div>
+    <div class="hotel-pro">步行可至近铁难波（去奈良）和南海难波（去机场）</div>
+    <div class="hotel-pro">紧邻黑门市场，6/23 拖行李过来可直接寄存就开吃</div>
+    <div class="hotel-pro">备选：Dormy Inn Premium Namba（含温泉，价格更高）</div>
+    <div style="font-size:10px;color:#c2410c;margin-top:8px;">⚠ Vacation Rental 形态，自助密码锁入住，无 24h 前台、无温泉、无餐厅</div>
   </div>
 </div>
 
@@ -371,23 +372,23 @@ const DAYS = [
 
  {id:4,date:"6/23",weekday:"周二",emoji:"🏙️",title:"退房 · 难波漫游",color:"#f97316",
   center:[34.6650,135.5020],zoom:14,
-  hotel:"Dormy Inn Premium Namba（搬入）",
+  hotel:"ESLEAD HOTEL Namba Kuromon（搬入）",
   spots:[
    {id:"checkout_namba",name:"USJ酒店退房 · 前往难波",lat:34.6647,lng:135.4328,time:"09:00",icon:"🏨",
-    desc:"退房后先将行李寄存酒店，轻装出发。Dormy Inn Namba 下午 15:00 正式入住",
+    desc:"退房后先将行李寄存酒店，轻装出发。ESLEAD Kuromon 下午 16:00 正式入住",
     tip:"可通过携程/酒店App办理线上退房，节省大堂排队时间",transport:null},
-   {id:"checkin_dormy",name:"Dormy Inn Premium Namba 存放行李",lat:34.6592,lng:135.5009,time:"10:00",icon:"🏨",
-    desc:"先存放行李（入住时间15:00），轻装开始今天的难波游",
-    tip:"酒店距黑门市场步行约5分钟，位置极佳",
-    transport:{mode:"JR夢咲線 + 大阪環状線 + 地铁御堂筋线",duration:"约40分钟",
+   {id:"checkin_eslead",name:"ESLEAD HOTEL Namba Kuromon 存放行李",lat:34.6633,lng:135.5092,time:"10:30",icon:"🏨",
+    desc:"先存放行李（入住时间16:00），轻装开始今天的难波游",
+    tip:"Vacation Rental 形态，自助密码锁入住，下楼即黑门市场",
+    transport:{mode:"JR夢咲線 + 大阪環状線 + 地铁堺筋线",duration:"约45分钟",
      costJPY:560,costCNY:27,
      boarding:"樱岛站（JR）乘夢咲線至西九条（¥170），换大阪環状線（内回り）至新今宫",
-     alighting:"新今宫换乘地铁御堂筋线至难波站，步行约5分至Dormy Inn Namba"}},
-   {id:"kuromon",name:"黑门市场（黒門市場）",lat:34.6677,lng:135.5072,time:"10:30",icon:"🏪",
+     alighting:"新今宫换乘地铁堺筋线至日本桥站（8号口），步行 5 分至 ESLEAD Kuromon"}},
+   {id:"kuromon",name:"黑门市场（黒門市場）",lat:34.6677,lng:135.5072,time:"11:00",icon:"🏪",
     desc:"大阪厨房，海鲜 · 和牛串 · 玉子烧边走边吃。营业约9:00–18:00",
     tip:"建议早到，11点后人流急增。推荐：三重蟹脚¥500（约¥24）、和牛串¥800（约¥38）",
-    transport:{mode:"步行",duration:"约5分钟",costJPY:0,costCNY:0,
-     boarding:"从Dormy Inn Namba出发",alighting:"黑门市场入口"}},
+    transport:{mode:"步行",duration:"约3分钟",costJPY:0,costCNY:0,
+     boarding:"从 ESLEAD Kuromon 出发",alighting:"黑门市场入口"}},
    {id:"dotonbori",name:"道顿堀",lat:34.6689,lng:135.5013,time:"11:30",icon:"🌆",
     desc:"大阪最具代表性商业街，固力果跑步人招牌 · 蟹道乐 · 金龙拉面",
     tip:"推荐午餐：美津の大阪烧约¥1,200/人（约¥57），或道顿堀周边任意觅食",
@@ -408,16 +409,16 @@ const DAYS = [
     tip:"傍晚18点灯光版拍照更有氛围。女儿见到这只巨狮必定惊叫！",
     transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
      boarding:"从心斋桥筋南端步行",alighting:"难波八坂神社正门"}},
-   {id:"dormy_checkin",name:"Dormy Inn Premium Namba 正式入住",lat:34.6592,lng:135.5009,time:"18:30",icon:"🏨",
-    desc:"回酒店正式入住，享受天然温泉。今天是新酒店第一晚！",
-    tip:"温泉营业到深夜（约2:00），睡前泡汤极舒适",
+   {id:"eslead_checkin",name:"ESLEAD HOTEL Namba Kuromon 正式入住",lat:34.6633,lng:135.5092,time:"18:30",icon:"🏨",
+    desc:"回酒店正式入住，密码锁开门，今晚第一次在公寓自己烧水/洗衣",
+    tip:"全程无前台，入住前 Eslead 会发邮件给密码与房号；附近 7-11 / 罗森步行 1 分钟",
     transport:{mode:"步行",duration:"约15分钟",costJPY:0,costCNY:0,
-     boarding:"从难波八坂神社步行",alighting:"Dormy Inn Premium Namba"}}
+     boarding:"从难波八坂神社步行",alighting:"ESLEAD HOTEL Namba Kuromon"}}
   ]},
 
  {id:5,date:"6/24",weekday:"周三",emoji:"🏯",title:"大阪历史人文游",color:"#8b5cf6",
   center:[34.6700,135.5100],zoom:13,
-  hotel:"Dormy Inn Premium Namba",
+  hotel:"ESLEAD HOTEL Namba Kuromon",
   spots:[
    {id:"osaka_castle",name:"大阪城公园",lat:34.6873,lng:135.5262,time:"09:00",icon:"🏯",
     desc:"公园免费入内，天守阁登楼¥600（约¥29）成人，12岁以下免费。游览约2–3小时",
@@ -454,7 +455,7 @@ const DAYS = [
 
  {id:6,date:"6/25",weekday:"周四",emoji:"🦁",title:"天王寺动物园 · 阿倍野 HARUKAS",color:"#14b8a6",
   center:[34.6500,135.5100],zoom:14,
-  hotel:"Dormy Inn Premium Namba",
+  hotel:"ESLEAD HOTEL Namba Kuromon",
   spots:[
    {id:"tennoji_zoo",name:"天王寺动物园",lat:34.6515,lng:135.5072,time:"10:00",icon:"🦁",
     desc:"大阪市中心百年动物园，狮子、老虎、长颈鹿、北极熊。成人 ¥500（约 ¥24），小中学生 ¥200（约 ¥10），未就学儿童免费",
@@ -478,22 +479,22 @@ const DAYS = [
     tip:"停留 1.5 小时足够，避开 18:00 后人流高峰",
     transport:{mode:"停留原地",duration:"—",costJPY:0,costCNY:0,
      boarding:"展望台 60 楼",alighting:"展望台 60 楼"}},
-   {id:"namba_dinner_d6",name:"返回难波晚餐",lat:34.6657,lng:135.5013,time:"19:30",icon:"🍽️",
-    desc:"乘御堂筋线 1 站回难波，约 5 分钟",
-    tip:"难波千日前回转寿司 / 一风堂拉面方便收尾",
-    transport:{mode:"大阪地铁御堂筋线",duration:"约5分钟",
-     costJPY:180,costCNY:9,
-     boarding:"天王寺站乘御堂筋线（梅田方向）",
-     alighting:"难波站下车，步行回 Dormy Inn Namba"}}
+   {id:"namba_dinner_d6",name:"返回难波/日本桥晚餐",lat:34.6633,lng:135.5092,time:"19:30",icon:"🍽️",
+    desc:"乘堺筋线/御堂筋线 1–2 站回酒店附近用餐",
+    tip:"日本桥/黑门附近的回转寿司、一风堂拉面、烧肉都不远",
+    transport:{mode:"大阪地铁堺筋线",duration:"约8分钟",
+     costJPY:230,costCNY:11,
+     boarding:"动物园前站乘堺筋线（北行）",
+     alighting:"日本桥站 8 号口，步行 5 分回 ESLEAD Kuromon"}}
   ]},
 
  {id:7,date:"6/26",weekday:"周五",emoji:"🎡",title:"生驹山 + 奈良合并日",color:"#22c55e",
   center:[34.6850,135.7500],zoom:10,
-  hotel:"Dormy Inn Premium Namba",
+  hotel:"ESLEAD HOTEL Namba Kuromon",
   spots:[
    {id:"namba_kintetsu_d7",name:"近铁大阪难波站出发",lat:34.6662,lng:135.5012,time:"08:30",icon:"🚃",
     desc:"乘近铁奈良线急行前往生驒站，争取午前完成山上游玩",
-    tip:"酒店步行 10–15 分钟至近铁难波站 B3 层",
+    tip:"从 ESLEAD Kuromon 步行约 10 分钟至近铁难波站 B3 层",
     transport:null},
    {id:"ikoma_sta",name:"近铁生驒站 · 换宝山线缆车",lat:34.6909,lng:135.7035,time:"09:00",icon:"🚃",
     desc:"抵达生驒站，步行约 5 分至宝山线「鸟居前站」，换乘缆车上山。缆车往返 ¥1,100（约 ¥52）成人",
@@ -532,12 +533,12 @@ const DAYS = [
     transport:{mode:"步行（公园内）",duration:"约5分钟",costJPY:0,costCNY:0,
      boarding:"从奈良公园向北步行",alighting:"东大寺南大门"}},
    {id:"return_namba_d7",name:"返回难波晚餐",lat:34.6662,lng:135.5012,time:"18:00",icon:"🚃",
-    desc:"乘近铁奈良线急行返回，约 40 分钟。返回后可泡温泉，洗掉一天疲惫",
+    desc:"乘近铁奈良线急行返回，约 40 分钟。回酒店把一天的脏衣服丢洗衣机",
     tip:"近铁奈良站有伴手礼可顺便购买：奈良吉野葛、柿叶寿司打包带走",
     transport:{mode:"近铁奈良线 急行",duration:"约40分钟",
      costJPY:680,costCNY:32,
      boarding:"近铁奈良站乘奈良线急行（大阪难波方向）",
-     alighting:"近铁大阪难波站下车，步行 5 分至 Dormy Inn Namba"}}
+     alighting:"近铁大阪难波站下车，步行 10 分至 ESLEAD Kuromon"}}
   ]},
 
  {id:8,date:"6/27",weekday:"周六",emoji:"✈️",title:"购物 · 启程回港",color:"#6366f1",
@@ -548,12 +549,12 @@ const DAYS = [
     desc:"集中采购：松本清 · COSMOS药妆 · 大国药妆 · 零食伴手礼",
     tip:"退房前把行李寄存酒店或车站coin locker（¥300–500），轻装购物，临走取回",
     transport:null},
-   {id:"nankai_namba",name:"南海难波站 出发 → KIX",lat:34.6657,lng:135.5013,time:"14:30",icon:"🚃",
-    desc:"乘南海电铁前往关西机场，建议出发前至少2.5小时到机场办理值机",
-    tip:"建议乘Rapi:t特急（¥1,800，约¥86，约38分，有固定座位），更舒适；或空港急行¥1,070",
-    transport:{mode:"大阪地铁 + 南海电铁",duration:"约50分钟",
-     costJPY:1300,costCNY:62,
-     boarding:"酒店附近地铁至难波，步行至南海难波站，乘空港急行（KIX方向）",
+   {id:"nankai_namba",name:"南海难波站 出发 → KIX（Rapi:t 特急）",lat:34.6657,lng:135.5013,time:"14:00",icon:"🚃",
+    desc:"乘南海电铁 Rapi:t 特急前往关西机场，38 分直达。建议至少 2.5 小时到机场办值机",
+    tip:"Rapi:t 全列指定席+大件行李区，3 人带行李最舒服。Klook 提前买约 ¥1,290/人，比窗口便宜约 ¥200",
+    transport:{mode:"步行 + 南海 Rapi:t 特急",duration:"约50分钟（含步行）",
+     costJPY:1490,costCNY:71,
+     boarding:"从 ESLEAD Kuromon 步行 10 分至南海难波站，乘 Rapi:t β/α（关空方向）",
      alighting:"关西国际机场（KIX）T1，进入值机大厅"}},
    {id:"kix_dep",name:"关西机场 KIX 出发回港",lat:34.4347,lng:135.2443,time:"17:00",icon:"✈️",
     desc:"香港航空 17:00 KIX → HKG，预计 20:00 抵港，包车返回南沙约 21:30 到家",
